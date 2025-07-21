@@ -435,7 +435,7 @@ try {
     }
 } catch {
     Write-Host "Failed to create and start HiveMQ Edge service." -ForegroundColor Red
-    Stop-Transcript
+    Stop-Transcript | Out-Null
     throw
 } finally {
     if ((Test-Path $downloadPath) -or (Test-Path "$tempPath\nssm-2.24-101-g897c7ad")) {
