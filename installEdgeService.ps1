@@ -48,7 +48,15 @@ $links = @{
 # Log everything from the PowerShell script session to a file
 $hostname = hostname
 $datetime = Get-Date -f 'yyyyMMddHHmmss'
-# Start-Transcript -Path "$installationFolder\deploy\standalone-install-${hostname}-${datetime}.log" | Out-Null
+Start-Transcript -Path "$installationFolder\deploy\standalone-install-${hostname}-${datetime}.log" | Out-Null
+
+# Check if script is running as Administrator
+if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()
+    ).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+    Write-Warning "You do not have Administrator rights to run this script.`nPlease run PowerShell as Administrator."
+    Exit
+}
+
 Write-Host "Starting HiveMQ Broker installation." -BackgroundColor Yellow -ForegroundColor Black
 
 # Test download links
@@ -421,11 +429,13 @@ try {
         Start-Sleep -Seconds 5
         if ($status -eq 'Running') {
             Write-Host "HiveMQ Edge Service has been created and started successfully!" -ForegroundColor Green
+            Stop-Transcript  | Out-Null
             break
         }
     }
 } catch {
     Write-Host "Failed to create and start HiveMQ Edge service." -ForegroundColor Red
+    Stop-Transcript
     throw
 } finally {
     if ((Test-Path $downloadPath) -or (Test-Path "$tempPath\nssm-2.24-101-g897c7ad")) {

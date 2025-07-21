@@ -20,3 +20,10 @@ Hardcoded 2025.11 in line 131
 
  # Example: Forcefully delete all transcript files in a directory
 Remove-Item -Path "c:\hivemq-edge\*" -Include *.txt,*.log -Force -Recurse -ErrorAction SilentlyContinue
+
+Stop-Transcript
+
+# Version 
+
+Alpha 1 - !! Not production ready !!
+250721-1241
