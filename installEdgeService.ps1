@@ -48,7 +48,7 @@ $links = @{
 # Log everything from the PowerShell script session to a file
 $hostname = hostname
 $datetime = Get-Date -f 'yyyyMMddHHmmss'
-Start-Transcript -Path "$installationFolder\deploy\standalone-install-${hostname}-${datetime}.log" | Out-Null
+# Start-Transcript -Path "$installationFolder\deploy\standalone-install-${hostname}-${datetime}.log" | Out-Null
 Write-Host "Starting HiveMQ Broker installation." -BackgroundColor Yellow -ForegroundColor Black
 
 # Test download links
@@ -128,7 +128,7 @@ try {
     } else {
         throw "HiveMQ $hivemqVersion to $extractedFolder extraction failed."
     }
-    Copy-Item -Path "$tempPath\hivemq-edge-2025.3\*" -Destination $installationFolder -Recurse -Force -ErrorAction Stop
+    Copy-Item -Path "$tempPath\hivemq-edge-2025.11\*" -Destination $installationFolder -Recurse -Force -ErrorAction Stop
     Write-Host "HiveMQ $hivemqVersion installation completed successfully!" -ForegroundColor Green
 } catch {
     Write-Host "Failed to install HiveMQ $hivemqVersion." -ForegroundColor Red

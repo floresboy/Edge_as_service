@@ -10,3 +10,13 @@
 
  3) Navigate to the folder where you downloaded the PowerShell script and execute the "Install-HiveMQ-WindowsServer-Standalone.ps1" script to install HiveMQ.
  .\Install-HiveMQ-WindowsServer-Standalone.ps1
+
+# Need to fix:
+Hardcoded 2025.11 in line 131
+
+# Commands
+ .\nssm.exe remove HiveMQEdgeService
+
+
+ # Example: Forcefully delete all transcript files in a directory
+Remove-Item -Path "c:\hivemq-edge\*" -Include *.txt,*.log -Force -Recurse -ErrorAction SilentlyContinue
